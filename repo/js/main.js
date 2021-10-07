@@ -1,7 +1,7 @@
-
+// setting up to us JS for my HTML component of the game
 let body = document.getElementById('body');
 body.className = 'container';
-
+// create a function to create all my elements for the html
 function buildElement(elementType, classes, id, htmlContent) {
     let element = document.createElement(elementType);
     element.className = classes;
@@ -9,23 +9,25 @@ function buildElement(elementType, classes, id, htmlContent) {
     element.innerHTML = htmlContent;
     return element;
 }
-
+// function that start ot build the game board
 function buildGame() {
     state = 0;
+// declaring my html elements to be called using bootstrap to stylize them
     let title = buildElement('h1', 'text-center my-4 text-light', 'title', 'Tic-Tac-Toe');
     let turn = buildElement('h6', 'text-center mt-3', 'turn', "Player X's Turn");
     title.appendChild(turn);
     body.appendChild(title);
-
+// creating my gameboard
     let gameBoard = buildElement('div', 'container', 'board', '');
     let tiles = 0;
 
-  
+// creating my equation to make rows. be 3x3 and calling for the rows and columns to be generated
     for (let i = 0; i < 3; i++) {
         let mainRow = buildElement('div', 'row border-top border-bottom border-dark mx-auto shadow', 'gamerow', '');
         for (let j = 0; j < 3; j++) {
             let mainCol = buildElement('div', 'col-4 bg-info text-center border-start border-dark display-3 border-end pt-4', tiles, '');
             tiles++;
+            // event listener for the click within the gameboard to start the playGame function
             mainCol.addEventListener('click', playGame);
             mainRow.appendChild(mainCol);
         }
@@ -41,7 +43,7 @@ function buildGame() {
     gameBoard.appendChild(buttonRow);
     body.appendChild(gameBoard);
 }
-
+// declaring combos for wins for the playGame function. Will pull horizontal, vertical, and diagonal winning postions
 let winCombo = [
     [0, 1, 2],
     [3, 4, 5],
@@ -52,7 +54,7 @@ let winCombo = [
     [0, 4, 8],
     [2, 4, 6]
 ];
-
+// function starts the game when it hears the event listener for the build game fucntion
 function playGame() {
     let turnText = document.getElementById('turn');
     if (this.innerText == '' && gameOver == false) {
@@ -65,13 +67,13 @@ function playGame() {
         }
         state++;
     }
-
+// uses one of the above values from winCombo to declare a winner
     for (let i = 0; i < winCombo.length; i++) {
         let pos1 = document.getElementById(winCombo[i][0]);
         let pos2 = document.getElementById(winCombo[i][1]);
         let pos3 = document.getElementById(winCombo[i][2]);
         console.log(pos1, pos2, pos3, this);
-
+// listens for one of the games players to hit one of the game winCombos and declare a winner
         if (pos1.innerText === pos2.innerText && pos2.innerText === pos3.innerText && pos1.innerText === 'X') {
             turnText.innerHTML = 'Game Over - Player X wins';
             gameOver = true;
@@ -81,13 +83,13 @@ function playGame() {
             gameOver = true;
         }
     }
-    
+    // determines if there is a tie
     if (state >= 9 && gameOver == false) {
         turnText.innerHTML = 'The game is a tie!';
     }
 }
 
-
+// funciton to generate the restart button
 function restartGame() {
     state = 0;
     body.innerHTML = '';
