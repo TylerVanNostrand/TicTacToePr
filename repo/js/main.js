@@ -21,7 +21,7 @@ function buildGame() {
     let gameBoard = buildElement('div', 'container', 'board', '');
     let tiles = 0;
 
-// creating my equation to make rows. be 3x3 and calling for the rows and columns to be generated
+// creating my equation to make rows. be 3x3 and calling for the rows and columns to be generated (view)
     for (let i = 0; i < 3; i++) {
         let mainRow = buildElement('div', 'row border-top border-bottom border-dark mx-auto shadow', 'gamerow', '');
         for (let j = 0; j < 3; j++) {
@@ -54,7 +54,7 @@ let winCombo = [
     [0, 4, 8],
     [2, 4, 6]
 ];
-// function starts the game when it hears the event listener for the build game fucntion
+// function starts the game when it hears the event listener for the build game fucntion (model)
 function playGame() {
     let turnText = document.getElementById('turn');
     if (this.innerText == '' && gameOver == false) {
@@ -73,7 +73,7 @@ function playGame() {
         let pos2 = document.getElementById(winCombo[i][1]);
         let pos3 = document.getElementById(winCombo[i][2]);
         console.log(pos1, pos2, pos3, this);
-// listens for one of the games players to hit one of the game winCombos and declare a winner
+// listens for one of the games players to hit one of the game winCombos and declare a winner (con)
         if (pos1.innerText === pos2.innerText && pos2.innerText === pos3.innerText && pos1.innerText === 'X') {
             turnText.innerHTML = 'Game Over - Player X wins';
             gameOver = true;
